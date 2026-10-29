@@ -1,16 +1,18 @@
-## Hi there 👋
 
-<!--
-**Pedro-Henrique-Boligon-Mathias/Pedro-Henrique-Boligon-Mathias** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+# Olá, eu sou o Pedro Henrique! 👋
 
-Here are some ideas to get you started:
+💻 Desenvolvedor de Software | 🎓 Estudante de Ciência da Computação
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### 🛠️ Tecnologias
+
+![Skills](https://skillicons.dev/icons?i=js,ts,react,java,c,postgres,docker,git)
+
+### 📊 GitHub Stats
+
+![GitHub Stats](https://github-stats-extended.vercel.app/api?username=Pedro-Henrique-Boligon-Mathias&show_icons=true&theme=tokyonight)
+
+![Top Languages](https://github-stats-extended.vercel.app/api/top-langs/?username=Pedro-Henrique-Boligon-Mathias&layout=compact&theme=tokyonight)
+
+### 🔥 GitHub Streak
+
+![GitHub Streak](https://streak-stats.demolab.com?user=Pedro-Henrique-Boligon-Mathias&theme=tokyonight)
