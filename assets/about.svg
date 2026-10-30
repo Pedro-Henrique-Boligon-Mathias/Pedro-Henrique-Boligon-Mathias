@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="474" viewBox="0 0 880 474" fill="#b4b4b4" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" role="img" aria-label="Sobre: Desenvolvimento e sustentação de sistemas internos em produção: Python no back-end, React e Vite no front-end, PostgreSQL no banco. Integrações via APIs REST e automações com n8n e agentes de IA. Trajetória: Analista de Desenvolvimento de Sistemas, Tchêturbo Telecom · CLT (JUN 2026 — ATUAL); Jovem Aprendiz · Desenv. de Sistemas, Tchêturbo Telecom (NOV 2024 — MAI 2026); Monitor de Tecnologia, SuperGeeks (JAN 2022 — OUT 2024); Bacharelado em Ciência da Computação, IFFar · em andamento (2026 — 2029). Stack: Python, Go, C, APIs REST, PostgreSQL, React, TypeScript, Vite, React Native, Docker, Linux, Git, n8n, Agentes de IA.">
-<title>Sobre: Desenvolvimento e sustentação de sistemas internos em produção: Python no back-end, React e Vite no front-end, PostgreSQL no banco. Integrações via APIs REST e automações com n8n e agentes de IA. Trajetória: Analista de Desenvolvimento de Sistemas, Tchêturbo Telecom · CLT (JUN 2026 — ATUAL); Jovem Aprendiz · Desenv. de Sistemas, Tchêturbo Telecom (NOV 2024 — MAI 2026); Monitor de Tecnologia, SuperGeeks (JAN 2022 — OUT 2024); Bacharelado em Ciência da Computação, IFFar · em andamento (2026 — 2029). Stack: Python, Go, C, APIs REST, PostgreSQL, React, TypeScript, Vite, React Native, Docker, Linux, Git, n8n, Agentes de IA.</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="190" viewBox="0 0 880 190" fill="#b4b4b4" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" role="img" aria-label="Sobre: Desenvolvedor full stack na Tchêturbo Telecom e estudante de Ciência da Computação no IFFar. Sistemas internos, APIs REST e automação com n8n e IA. Stack: Python, Go, C, APIs REST, PostgreSQL, React, TypeScript, Vite, React Native, Docker, Linux, Git, n8n, Agentes de IA.">
+<title>Sobre: Desenvolvedor full stack na Tchêturbo Telecom e estudante de Ciência da Computação no IFFar. Sistemas internos, APIs REST e automação com n8n e IA. Stack: Python, Go, C, APIs REST, PostgreSQL, React, TypeScript, Vite, React Native, Docker, Linux, Git, n8n, Agentes de IA.</title>
 <style>
 .lbl{font-size:12px;font-weight:700;letter-spacing:2px}
 .cap{font-size:10px;letter-spacing:1.5px}
@@ -10,41 +10,32 @@
 .pulse{animation:pulse 1.6s steps(2,end) infinite}
 @keyframes pulse{50%{opacity:.15}}
 
-@media (prefers-reduced-motion:reduce){.px,.fade,.grow,.pulse,.tw,.scan{animation:none!important;opacity:1!important;transform:none!important}}
+@media (prefers-reduced-motion:reduce){.px,.fade,.growx,.pulse,.tw,.scan{animation:none!important;opacity:1!important;transform:none!important}}
 </style>
-<rect x=".5" y=".5" width="879" height="473" fill="#0a0a0a" stroke="#222"/>
-<g class="fade" style="animation-delay:0.1s"><rect x="28" y="38" width="7" height="7" fill="#39d353"/><text x="43" y="46" class="lbl" fill="#f2f2f2">01 / SOBRE</text></g>
-<g class="fade" style="animation-delay:0.18s"><text x="28" y="76" font-size="13">Desenvolvimento e sustentação de sistemas internos em</text></g>
-<g class="fade" style="animation-delay:0.26s"><text x="28" y="96" font-size="13">produção: Python no back-end, React e Vite no front-end,</text></g>
-<g class="fade" style="animation-delay:0.34s"><text x="28" y="116" font-size="13">PostgreSQL no banco. Integrações via APIs REST e</text></g>
-<g class="fade" style="animation-delay:0.42s"><text x="28" y="136" font-size="13">automações com n8n e agentes de IA.</text></g>
-<g class="fade" style="animation-delay:0.52s"><rect x="28" y="172" width="7" height="7" fill="#39d353"/><text x="43" y="180" class="lbl" fill="#f2f2f2">02 / TRAJETÓRIA</text></g>
-<line x1="32" y1="206" x2="32" y2="326" stroke="#006d32" stroke-dasharray="120" stroke-dashoffset="120"><animate attributeName="stroke-dashoffset" values="120;0" dur="1.2s" begin="0.52s" fill="freeze"/></line>
-<g class="fade" style="animation-delay:0.67s"><rect class="pulse" x="28" y="202" width="9" height="9" fill="#39d353"/><text x="50" y="210" class="cap" fill="#5e5e5e">JUN 2026 — ATUAL · TCHÊTURBO TELECOM · CLT</text><text x="50" y="228" font-size="13" fill="#f2f2f2">Analista de Desenvolvimento de Sistemas</text></g>
-<g class="fade" style="animation-delay:0.82s"><rect x="28.5" y="242.5" width="8" height="8" fill="#0a0a0a" stroke="#555"/><text x="50" y="250" class="cap" fill="#5e5e5e">NOV 2024 — MAI 2026 · TCHÊTURBO TELECOM</text><text x="50" y="268" font-size="13" fill="#b4b4b4">Jovem Aprendiz · Desenv. de Sistemas</text></g>
-<g class="fade" style="animation-delay:0.97s"><rect x="28.5" y="282.5" width="8" height="8" fill="#0a0a0a" stroke="#555"/><text x="50" y="290" class="cap" fill="#5e5e5e">JAN 2022 — OUT 2024 · SUPERGEEKS</text><text x="50" y="308" font-size="13" fill="#b4b4b4">Monitor de Tecnologia</text></g>
-<g class="fade" style="animation-delay:1.12s"><rect x="28.5" y="322.5" width="8" height="8" fill="#0a0a0a" stroke="#555"/><text x="50" y="330" class="cap" fill="#5e5e5e">2026 — 2029 · IFFAR · EM ANDAMENTO</text><text x="50" y="348" font-size="13" fill="#b4b4b4">Bacharelado em Ciência da Computação</text></g>
-<g class="fade" style="animation-delay:0.2s"><rect x="504" y="38" width="7" height="7" fill="#39d353"/><text x="519" y="46" class="lbl" fill="#f2f2f2">03 / STACK</text></g>
-<g class="fade" style="animation-delay:0.30s"><text x="504" y="78" class="cap" fill="#5e5e5e">BACK-END</text></g>
-<g class="fade" style="animation-delay:0.35s"><rect x="504.5" y="90.5" width="76" height="24" fill="#111" stroke="#2e2e2e"/><rect x="514" y="99" width="7" height="7" fill="#3572a5"/><text x="528" y="107" fill="#dcdcdc">Python</text></g>
-<g class="fade" style="animation-delay:0.40s"><rect x="588.5" y="90.5" width="47" height="24" fill="#111" stroke="#2e2e2e"/><rect x="598" y="99" width="7" height="7" fill="#00add8"/><text x="612" y="107" fill="#dcdcdc">Go</text></g>
-<g class="fade" style="animation-delay:0.45s"><rect x="643.5" y="90.5" width="39" height="24" fill="#111" stroke="#2e2e2e"/><rect x="653" y="99" width="7" height="7" fill="#a8b9cc"/><text x="667" y="107" fill="#dcdcdc">C</text></g>
-<g class="fade" style="animation-delay:0.50s"><rect x="690.5" y="90.5" width="97" height="24" fill="#111" stroke="#2e2e2e"/><rect x="700" y="99" width="7" height="7" fill="#39d353"/><text x="714" y="107" fill="#dcdcdc">APIs REST</text></g>
-<g class="fade" style="animation-delay:0.55s"><rect x="504.5" y="122.5" width="105" height="24" fill="#111" stroke="#2e2e2e"/><rect x="514" y="131" width="7" height="7" fill="#336791"/><text x="528" y="139" fill="#dcdcdc">PostgreSQL</text></g>
-<g class="fade" style="animation-delay:0.65s"><text x="504" y="176" class="cap" fill="#5e5e5e">FRONT / MOBILE</text></g>
-<g class="fade" style="animation-delay:0.70s"><rect x="504.5" y="188.5" width="68" height="24" fill="#111" stroke="#2e2e2e"/><rect x="514" y="197" width="7" height="7" fill="#61dafb"/><text x="528" y="205" fill="#dcdcdc">React</text></g>
-<g class="fade" style="animation-delay:0.75s"><rect x="580.5" y="188.5" width="105" height="24" fill="#111" stroke="#2e2e2e"/><rect x="590" y="197" width="7" height="7" fill="#3178c6"/><text x="604" y="205" fill="#dcdcdc">TypeScript</text></g>
-<g class="fade" style="animation-delay:0.80s"><rect x="693.5" y="188.5" width="61" height="24" fill="#111" stroke="#2e2e2e"/><rect x="703" y="197" width="7" height="7" fill="#646cff"/><text x="717" y="205" fill="#dcdcdc">Vite</text></g>
-<g class="fade" style="animation-delay:0.85s"><rect x="504.5" y="220.5" width="119" height="24" fill="#111" stroke="#2e2e2e"/><rect x="514" y="229" width="7" height="7" fill="#61dafb"/><text x="528" y="237" fill="#dcdcdc">React Native</text></g>
-<g class="fade" style="animation-delay:0.95s"><text x="504" y="274" class="cap" fill="#5e5e5e">INFRA · AUTOMAÇÃO</text></g>
-<g class="fade" style="animation-delay:1.00s"><rect x="504.5" y="286.5" width="76" height="24" fill="#111" stroke="#2e2e2e"/><rect x="514" y="295" width="7" height="7" fill="#2496ed"/><text x="528" y="303" fill="#dcdcdc">Docker</text></g>
-<g class="fade" style="animation-delay:1.05s"><rect x="588.5" y="286.5" width="68" height="24" fill="#111" stroke="#2e2e2e"/><rect x="598" y="295" width="7" height="7" fill="#fcc624"/><text x="612" y="303" fill="#dcdcdc">Linux</text></g>
-<g class="fade" style="animation-delay:1.10s"><rect x="664.5" y="286.5" width="54" height="24" fill="#111" stroke="#2e2e2e"/><rect x="674" y="295" width="7" height="7" fill="#f05032"/><text x="688" y="303" fill="#dcdcdc">Git</text></g>
-<g class="fade" style="animation-delay:1.15s"><rect x="726.5" y="286.5" width="54" height="24" fill="#111" stroke="#2e2e2e"/><rect x="736" y="295" width="7" height="7" fill="#ea4b71"/><text x="750" y="303" fill="#dcdcdc">n8n</text></g>
-<g class="fade" style="animation-delay:1.20s"><rect x="504.5" y="318.5" width="126" height="24" fill="#111" stroke="#2e2e2e"/><rect x="514" y="327" width="7" height="7" fill="#d97757"/><text x="528" y="335" fill="#dcdcdc">Agentes de IA</text></g>
-<g class="fade" style="animation-delay:1.3000000000000005s"><rect x="504" y="368" width="7" height="7" fill="#39d353"/><text x="519" y="376" class="lbl" fill="#f2f2f2">04 / FOCO</text></g>
-<g class="fade" style="animation-delay:1.40s"><text x="504" y="406" fill="#39d353">›</text><text x="520" y="406" font-size="13">sistemas internos em produção</text></g>
-<g class="fade" style="animation-delay:1.50s"><text x="504" y="426" fill="#39d353">›</text><text x="520" y="426" font-size="13">integrações REST com parceiros</text></g>
-<g class="fade" style="animation-delay:1.60s"><text x="504" y="446" fill="#39d353">›</text><text x="520" y="446" font-size="13">automação com n8n + agentes de IA</text></g>
-<line x1="476" y1="28" x2="476" y2="446" stroke="#222"/>
+<rect x=".5" y=".5" width="879" height="189" fill="#0a0a0a" stroke="#222"/>
+<g class="fade" style="animation-delay:0.1s"><rect x="28" y="38" width="7" height="7" fill="#f2f2f2"/><text x="43" y="46" class="lbl" fill="#f2f2f2">01 / SOBRE</text></g>
+<g class="fade" style="animation-delay:0.18s"><text x="28" y="76" font-size="13">Desenvolvedor full stack na</text></g>
+<g class="fade" style="animation-delay:0.26s"><text x="28" y="95" font-size="13">Tchêturbo Telecom e estudante</text></g>
+<g class="fade" style="animation-delay:0.34s"><text x="28" y="114" font-size="13">de Ciência da Computação no IFFar.</text></g>
+<g class="fade" style="animation-delay:0.42s"><text x="28" y="133" font-size="13">Sistemas internos, APIs REST e</text></g>
+<g class="fade" style="animation-delay:0.50s"><text x="28" y="152" font-size="13">automação com n8n e IA.</text></g>
+<line x1="296" y1="28" x2="296" y2="162" stroke="#222"/>
+<g class="fade" style="animation-delay:0.2s"><rect x="320" y="38" width="7" height="7" fill="#f2f2f2"/><text x="335" y="46" class="lbl" fill="#f2f2f2">02 / STACK</text></g>
+<g class="fade" style="animation-delay:0.30s"><text x="320" y="78" class="cap" fill="#5e5e5e">BACK-END</text></g>
+<g class="fade" style="animation-delay:0.34s"><rect x="456.5" y="62.5" width="72" height="23" fill="#111" stroke="#2a2a2a"/><rect x="464" y="70" width="7" height="7" fill="#3572a5"/><text x="477" y="78" fill="#dcdcdc">Python</text></g>
+<g class="fade" style="animation-delay:0.38s"><rect x="534.5" y="62.5" width="43" height="23" fill="#111" stroke="#2a2a2a"/><rect x="542" y="70" width="7" height="7" fill="#00add8"/><text x="555" y="78" fill="#dcdcdc">Go</text></g>
+<g class="fade" style="animation-delay:0.42s"><rect x="583.5" y="62.5" width="35" height="23" fill="#111" stroke="#2a2a2a"/><rect x="591" y="70" width="7" height="7" fill="#a8b9cc"/><text x="604" y="78" fill="#dcdcdc">C</text></g>
+<g class="fade" style="animation-delay:0.46s"><rect x="624.5" y="62.5" width="93" height="23" fill="#111" stroke="#2a2a2a"/><rect x="632" y="70" width="7" height="7" fill="#8e8e8e"/><text x="645" y="78" fill="#dcdcdc">APIs REST</text></g>
+<g class="fade" style="animation-delay:0.50s"><rect x="723.5" y="62.5" width="101" height="23" fill="#111" stroke="#2a2a2a"/><rect x="731" y="70" width="7" height="7" fill="#336791"/><text x="744" y="78" fill="#dcdcdc">PostgreSQL</text></g>
+<g class="fade" style="animation-delay:0.60s"><text x="320" y="112" class="cap" fill="#5e5e5e">FRONT / MOBILE</text></g>
+<g class="fade" style="animation-delay:0.64s"><rect x="456.5" y="96.5" width="64" height="23" fill="#111" stroke="#2a2a2a"/><rect x="464" y="104" width="7" height="7" fill="#61dafb"/><text x="477" y="112" fill="#dcdcdc">React</text></g>
+<g class="fade" style="animation-delay:0.68s"><rect x="526.5" y="96.5" width="101" height="23" fill="#111" stroke="#2a2a2a"/><rect x="534" y="104" width="7" height="7" fill="#3178c6"/><text x="547" y="112" fill="#dcdcdc">TypeScript</text></g>
+<g class="fade" style="animation-delay:0.72s"><rect x="633.5" y="96.5" width="57" height="23" fill="#111" stroke="#2a2a2a"/><rect x="641" y="104" width="7" height="7" fill="#646cff"/><text x="654" y="112" fill="#dcdcdc">Vite</text></g>
+<g class="fade" style="animation-delay:0.76s"><rect x="696.5" y="96.5" width="115" height="23" fill="#111" stroke="#2a2a2a"/><rect x="704" y="104" width="7" height="7" fill="#61dafb"/><text x="717" y="112" fill="#dcdcdc">React Native</text></g>
+<g class="fade" style="animation-delay:0.86s"><text x="320" y="146" class="cap" fill="#5e5e5e">INFRA · AUTOMAÇÃO</text></g>
+<g class="fade" style="animation-delay:0.90s"><rect x="456.5" y="130.5" width="72" height="23" fill="#111" stroke="#2a2a2a"/><rect x="464" y="138" width="7" height="7" fill="#2496ed"/><text x="477" y="146" fill="#dcdcdc">Docker</text></g>
+<g class="fade" style="animation-delay:0.94s"><rect x="534.5" y="130.5" width="64" height="23" fill="#111" stroke="#2a2a2a"/><rect x="542" y="138" width="7" height="7" fill="#fcc624"/><text x="555" y="146" fill="#dcdcdc">Linux</text></g>
+<g class="fade" style="animation-delay:0.98s"><rect x="604.5" y="130.5" width="50" height="23" fill="#111" stroke="#2a2a2a"/><rect x="612" y="138" width="7" height="7" fill="#f05032"/><text x="625" y="146" fill="#dcdcdc">Git</text></g>
+<g class="fade" style="animation-delay:1.02s"><rect x="660.5" y="130.5" width="50" height="23" fill="#111" stroke="#2a2a2a"/><rect x="668" y="138" width="7" height="7" fill="#ea4b71"/><text x="681" y="146" fill="#dcdcdc">n8n</text></g>
+<g class="fade" style="animation-delay:1.06s"><rect x="716.5" y="130.5" width="122" height="23" fill="#111" stroke="#2a2a2a"/><rect x="724" y="138" width="7" height="7" fill="#d97757"/><text x="737" y="146" fill="#dcdcdc">Agentes de IA</text></g>
 </svg>

@@ -3,8 +3,8 @@
 <div align="center">
 
 <img src="./assets/hero.svg" width="100%" alt="PEDRO HENRIQUE. — desenvolvedor full stack" />
-<img src="./assets/about.svg" width="100%" alt="Sobre, trajetória e stack" />
-<img src="./assets/activity.svg" width="100%" alt="Atividade no GitHub, projetos ativos e commits recentes" />
+<img src="./assets/about.svg" width="100%" alt="Sobre e stack" />
+<img src="./assets/activity.svg" width="100%" alt="Gráfico de contribuições e commits recentes por repositório" />
 
 <br />
 

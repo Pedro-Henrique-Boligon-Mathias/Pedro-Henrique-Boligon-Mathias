@@ -9,33 +9,11 @@
   "status": "ANALISTA DE DESENVOLVIMENTO @ TCHÊTURBO TELECOM",
   "tagline": "BUILD · LEARN · CREATE",
   "about": [
-    "Desenvolvimento e sustentação de sistemas internos em",
-    "produção: Python no back-end, React e Vite no front-end,",
-    "PostgreSQL no banco. Integrações via APIs REST e",
-    "automações com n8n e agentes de IA."
-  ],
-  "timeline": [
-    {
-      "period": "JUN 2026 — ATUAL",
-      "title": "Analista de Desenvolvimento de Sistemas",
-      "org": "Tchêturbo Telecom · CLT",
-      "current": true
-    },
-    {
-      "period": "NOV 2024 — MAI 2026",
-      "title": "Jovem Aprendiz · Desenv. de Sistemas",
-      "org": "Tchêturbo Telecom"
-    },
-    {
-      "period": "JAN 2022 — OUT 2024",
-      "title": "Monitor de Tecnologia",
-      "org": "SuperGeeks"
-    },
-    {
-      "period": "2026 — 2029",
-      "title": "Bacharelado em Ciência da Computação",
-      "org": "IFFar · em andamento"
-    }
+    "Desenvolvedor full stack na",
+    "Tchêturbo Telecom e estudante",
+    "de Ciência da Computação no IFFar.",
+    "Sistemas internos, APIs REST e",
+    "automação com n8n e IA."
   ],
   "stack": [
     {
@@ -68,7 +46,6 @@
       ]
     }
   ],
-  "featured": [],
   "links": [
     {
       "label": "LINKEDIN",

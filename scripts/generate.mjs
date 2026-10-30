@@ -14,14 +14,15 @@ if (!token) throw new Error('GITHUB_TOKEN is required')
 
 const W = 880
 const FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace"
-const C = { bg: '#0a0a0a', line: '#222', dim: '#5e5e5e', mid: '#8e8e8e', text: '#b4b4b4', hi: '#f2f2f2', green: '#39d353' }
+const C = { bg: '#0a0a0a', line: '#222', dim: '#5e5e5e', mid: '#8e8e8e', text: '#b4b4b4', hi: '#f2f2f2' }
+const MONTHS = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ']
 // GitHub's dark contribution scale
 const LEVELS = ['#1c2128', '#0e4429', '#006d32', '#26a641', '#39d353']
 // GitHub linguist colors (C is lightened so it shows on black)
 const COLORS = {
   TypeScript: '#3178c6', JavaScript: '#f1e05a', CSS: '#663399', HTML: '#e34c26', C: '#a8b9cc', Python: '#3572a5',
   Go: '#00add8', Java: '#b07219', PostgreSQL: '#336791', React: '#61dafb', 'React Native': '#61dafb', Vite: '#646cff',
-  Docker: '#2496ed', Linux: '#fcc624', Git: '#f05032', n8n: '#ea4b71', 'APIs REST': '#39d353', 'Agentes de IA': '#d97757',
+  Docker: '#2496ed', Linux: '#fcc624', Git: '#f05032', n8n: '#ea4b71', 'APIs REST': '#8e8e8e', 'Agentes de IA': '#d97757',
 }
 
 // ---------------------------------------------------------------- helpers
@@ -39,21 +40,6 @@ function rng(seed) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296
   }
 }
-
-function ago(iso, now) {
-  const d = Math.floor((now - new Date(iso)) / 864e5)
-  if (d <= 0) return 'hoje'
-  if (d === 1) return 'ontem'
-  if (d < 14) return `há ${d}d`
-  if (d < 60) return `há ${Math.floor(d / 7)} sem`
-  if (d < 365) return `há ${Math.floor(d / 30)} meses`
-  return `há ${Math.floor(d / 365)}a`
-}
-
-const stamp = (d) =>
-  new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric' })
-    .format(d)
-    .replaceAll('/', '.')
 
 // Fill and size go in attributes, not CSS, so per-text values always win over the defaults.
 const CLASS_FILL = { cap: C.dim, lbl: C.hi }
@@ -74,7 +60,7 @@ function pixelText(text, x0, y0, size, { delay = 0, spread = 0.8, fill = C.hi, r
 }
 
 function label(x, y, text, delay = 0) {
-  return `<g class="fade" style="animation-delay:${delay}s"><rect x="${x}" y="${y - 8}" width="7" height="7" fill="${C.green}"/>${t(x + 15, y, text, `class="lbl"`)}</g>`
+  return `<g class="fade" style="animation-delay:${delay}s"><rect x="${x}" y="${y - 8}" width="7" height="7" fill="${C.hi}"/>${t(x + 15, y, text, `class="lbl"`)}</g>`
 }
 
 function svg(w, h, title, body, extraCss = '') {
@@ -90,7 +76,7 @@ function svg(w, h, title, body, extraCss = '') {
 .pulse{animation:pulse 1.6s steps(2,end) infinite}
 @keyframes pulse{50%{opacity:.15}}
 ${extraCss}
-@media (prefers-reduced-motion:reduce){.px,.fade,.grow,.pulse,.tw,.scan{animation:none!important;opacity:1!important;transform:none!important}}
+@media (prefers-reduced-motion:reduce){.px,.fade,.growx,.pulse,.tw,.scan{animation:none!important;opacity:1!important;transform:none!important}}
 </style>
 <rect x=".5" y=".5" width="${w - 1}" height="${h - 1}" fill="${C.bg}" stroke="${C.line}"/>
 ${body}
@@ -112,52 +98,18 @@ async function gql(query, variables) {
 }
 
 async function fetchGithub(login, now) {
-  const since = new Date(now - 26 * 7 * 864e5).toISOString()
+  const from = new Date(now - 30 * 864e5).toISOString()
   const { user } = await gql(
-    `query($login:String!,$since:GitTimestamp!){user(login:$login){
-      pinnedItems(first:6,types:REPOSITORY){nodes{...on Repository{name}}}
-      contributionsCollection{totalCommitContributions totalPullRequestContributions
-        contributionCalendar{totalContributions weeks{contributionDays{date contributionCount}}}}
-      repositories(first:30,ownerAffiliations:OWNER,privacy:PUBLIC,isFork:false,orderBy:{field:PUSHED_AT,direction:DESC}){nodes{
-        name description url pushedAt stargazerCount primaryLanguage{name}
-        defaultBranchRef{target{...on Commit{
-          all:history(first:1){totalCount}
-          recent:history(first:100,since:$since){nodes{abbreviatedOid messageHeadline committedDate parents(first:1){totalCount} author{user{login}}}}
-        }}}
-      }}
+    `query($login:String!,$from:DateTime!){user(login:$login){
+      year:contributionsCollection{contributionCalendar{totalContributions weeks{contributionDays{date contributionCount}}}}
+      month:contributionsCollection(from:$from){totalCommitContributions
+        commitContributionsByRepository(maxRepositories:5){repository{name primaryLanguage{name}} contributions{totalCount}}}
     }}`,
-    { login, since },
+    { login, from },
   )
 
-  const mine = (c) => c.author?.user?.login?.toLowerCase() === login.toLowerCase() && c.parents.totalCount < 2
-  const repos = user.repositories.nodes
-    .filter((r) => r.name.toLowerCase() !== login.toLowerCase() && r.defaultBranchRef)
-    .map((r) => ({
-      name: r.name,
-      description: r.description,
-      url: r.url,
-      pushedAt: r.pushedAt,
-      stars: r.stargazerCount,
-      language: r.primaryLanguage?.name ?? '—',
-      total: r.defaultBranchRef.target.all.totalCount,
-      commits: r.defaultBranchRef.target.recent.nodes.filter(mine).map((c) => ({ ...c, repo: r.name })),
-    }))
-
-  const pinned = user.pinnedItems.nodes.map((n) => n.name)
-  const pick = profile.featured.length ? profile.featured : pinned
-  const featured = (
-    pick.length
-      ? pick.map((n) => repos.find((r) => r.name === n)).filter(Boolean)
-      : [...repos].sort((a, b) => b.commits.length - a.commits.length || new Date(b.pushedAt) - new Date(a.pushedAt))
-  ).slice(0, 4)
-
-  const log = repos
-    .flatMap((r) => r.commits)
-    .sort((a, b) => new Date(b.committedDate) - new Date(a.committedDate))
-    .slice(0, 6)
-
-  const cc = user.contributionsCollection
-  const weeks = cc.contributionCalendar.weeks.map((w) => w.contributionDays)
+  const cal = user.year.contributionCalendar
+  const weeks = cal.weeks.map((w) => w.contributionDays)
   const days = weeks.flat()
   let longest = 0
   let run = 0
@@ -168,13 +120,16 @@ async function fetchGithub(login, now) {
   while (i >= 0 && days[i].contributionCount) current++, i--
 
   return {
-    total: cc.contributionCalendar.totalContributions,
-    commits: cc.totalCommitContributions,
-    prs: cc.totalPullRequestContributions,
+    total: cal.totalContributions,
+    weeks,
     current,
     longest,
-    featured,
-    log,
+    monthCommits: user.month.totalCommitContributions,
+    byRepo: user.month.commitContributionsByRepository.map((r) => ({
+      name: r.repository.name,
+      language: r.repository.primaryLanguage?.name,
+      count: r.contributions.totalCount,
+    })),
   }
 }
 
@@ -194,10 +149,7 @@ function hero(now) {
   // big pixel name
   profile.name.forEach((line, i) => {
     const y = 58 + i * 66, delay = 0.1 + i * 0.25
-    const body = line.replace(/\.$/, '')
-    const text = pixelText(body, 30, y, 8, { delay, spread: 0.7, rand })
-    parts.push(text.svg)
-    if (body !== line) parts.push(pixelText('.', 30 + text.width + 16, y, 8, { delay: delay + 0.8, spread: 0, fill: C.green, rand }).svg)
+    parts.push(pixelText(line, 30, y, 8, { delay, spread: 0.7, rand }).svg)
   })
 
   // typed role with block cursor
@@ -208,15 +160,15 @@ function hero(now) {
   const rx = 52
   parts.push(
     `<defs><clipPath id="type"><rect x="${rx}" y="196" height="24" width="0"><animate attributeName="width" values="${steps.join(';')}" dur="${typeDur}s" begin="1.1s" fill="freeze" calcMode="discrete"/></rect></clipPath></defs>`,
-    t(30, 214, '>', `fill="${C.green}" font-size="16"`),
+    t(30, 214, '>', `fill="${C.dim}" font-size="16"`),
     `<text x="${rx}" y="214" font-size="16" fill="${C.hi}" textLength="${r2(role.length * cw)}" lengthAdjust="spacing" clip-path="url(#type)">${esc(role)}</text>`,
-    `<rect x="${rx}" y="200" width="9" height="17" fill="${C.green}"><animate attributeName="x" values="${steps.map((s) => r2(rx + s + 2)).join(';')}" dur="${typeDur}s" begin="1.1s" fill="freeze" calcMode="discrete"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" calcMode="discrete"/></rect>`,
+    `<rect x="${rx}" y="200" width="9" height="17" fill="${C.hi}"><animate attributeName="x" values="${steps.map((s) => r2(rx + s + 2)).join(';')}" dur="${typeDur}s" begin="1.1s" fill="freeze" calcMode="discrete"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" calcMode="discrete"/></rect>`,
     `<g class="fade" style="animation-delay:2s">${t(30, 244, profile.tools, `fill="${C.dim}"`)}</g>`,
   )
 
   // status bar
   parts.push(
-    `<rect class="pulse" x="28" y="292" width="7" height="7" fill="${C.green}"/>`,
+    `<rect class="pulse" x="28" y="292" width="7" height="7" fill="${LEVELS[4]}"/>`,
     t(44, 299, 'STATUS', `class="cap"`),
     t(104, 299, profile.status, `class="cap" fill="${C.text}"`),
     t(W - 28, 299, profile.tagline, `class="cap" text-anchor="end"`),
@@ -242,11 +194,11 @@ function hero(now) {
       if (ring > 0.6 && ring < 1 && !(d2 < 1 && v < 0)) b = ring < 0.78 ? 0.35 : 0.9
       const star = d2 >= 1 && b === 0 && rand() < 0.008
       if (star) b = 1
-      if (b > (bayer[j % 4][i % 4] + 0.5) / 16) lit.push([px, py, star ? rand() * 0.14 : rand(), star])
+      if (b > (bayer[j % 4][i % 4] + 0.5) / 16) lit.push([px, py, star ? rand() * 0.14 : rand()])
     }
   }
   const art = lit
-    .map(([x, y, r, star]) => (r < 0.14 ? `<rect class="tw tw${Math.floor(r * 28.6)}" x="${x}" y="${y}" width="${S - 1}" height="${S - 1}"${star ? ` fill="${C.green}"` : ''}/>` : `<rect x="${x}" y="${y}" width="${S - 1}" height="${S - 1}"/>`))
+    .map(([x, y, r]) => (r < 0.14 ? `<rect class="tw tw${Math.floor(r * 28.6)}" x="${x}" y="${y}" width="${S - 1}" height="${S - 1}"/>` : `<rect x="${x}" y="${y}" width="${S - 1}" height="${S - 1}"/>`))
     .join('')
   parts.push(
     `<defs><clipPath id="reveal"><rect x="${X0}" y="${Y0}" width="${AW}" height="0"><animate attributeName="height" values="0;${AH}" dur="1.6s" begin=".3s" fill="freeze" calcMode="spline" keySplines=".2 .7 .2 1"/></rect></clipPath></defs>`,
@@ -268,131 +220,99 @@ function about() {
   const parts = []
   let d = 0.1
 
-  // 01 / SOBRE
+  // 01 / SOBRE — short, left column
   parts.push(label(28, 46, '01 / SOBRE', d))
-  profile.about.forEach((line, i) => parts.push(`<g class="fade" style="animation-delay:${(d += 0.08).toFixed(2)}s">${t(28, 76 + i * 20, line, 'font-size="13"')}</g>`))
+  profile.about.forEach((line, i) => parts.push(`<g class="fade" style="animation-delay:${(d += 0.08).toFixed(2)}s">${t(28, 76 + i * 19, line, 'font-size="13"')}</g>`))
 
-  // 02 / TRAJETÓRIA
-  const ty = 206
-  const tl = profile.timeline
-  const lineH = (tl.length - 1) * 40
-  parts.push(
-    label(28, 180, '02 / TRAJETÓRIA', (d += 0.1)),
-    `<line x1="32" y1="${ty}" x2="32" y2="${ty + lineH}" stroke="${LEVELS[2]}" stroke-dasharray="${lineH}" stroke-dashoffset="${lineH}"><animate attributeName="stroke-dashoffset" values="${lineH};0" dur="1.2s" begin="${d.toFixed(2)}s" fill="freeze"/></line>`,
-  )
-  tl.forEach((e, i) => {
-    const y = ty + i * 40
-    const dot = e.current
-      ? `<rect class="pulse" x="28" y="${y - 4}" width="9" height="9" fill="${C.green}"/>`
-      : `<rect x="28.5" y="${y - 3.5}" width="8" height="8" fill="${C.bg}" stroke="#555"/>`
-    parts.push(
-      `<g class="fade" style="animation-delay:${(d += 0.15).toFixed(2)}s">${dot}${t(50, y + 4, `${e.period} · ${e.org.toUpperCase()}`, `class="cap"`)}${t(50, y + 22, e.title, `font-size="13" fill="${e.current ? C.hi : C.text}"`)}</g>`,
-    )
-  })
-
-  // 03 / STACK
-  const X = 504, XMAX = W - 28
+  // 02 / STACK — one row per group: label, then chips
+  const X = 320, CX = X + 136
   d = 0.2
-  parts.push(label(X, 46, '03 / STACK', d))
-  let y = 78
-  for (const g of profile.stack) {
-    parts.push(`<g class="fade" style="animation-delay:${(d += 0.1).toFixed(2)}s">${t(X, y, g.label, 'class="cap"')}</g>`)
-    let x = X
-    y += 12
+  parts.push(`<line x1="296" y1="28" x2="296" y2="PANEL_BOTTOM" stroke="${C.line}"/>`, label(X, 46, '02 / STACK', d))
+  profile.stack.forEach((g, row) => {
+    const y = 62 + row * 34
+    parts.push(`<g class="fade" style="animation-delay:${(d += 0.1).toFixed(2)}s">${t(X, y + 16, g.label, 'class="cap"')}</g>`)
+    let x = CX
     for (const item of g.items) {
-      const w = Math.round(item.length * 7.25 + 32)
-      if (x + w > XMAX) (x = X), (y += 32)
+      const w = Math.round(item.length * 7.25 + 28)
       parts.push(
-        `<g class="fade" style="animation-delay:${(d += 0.05).toFixed(2)}s"><rect x="${x + 0.5}" y="${y + 0.5}" width="${w}" height="24" fill="#111" stroke="#2e2e2e"/><rect x="${x + 10}" y="${y + 9}" width="7" height="7" fill="${COLORS[item] ?? C.mid}"/>${t(x + 24, y + 17, item, `fill="#dcdcdc"`)}</g>`,
+        `<g class="fade" style="animation-delay:${(d += 0.04).toFixed(2)}s"><rect x="${x + 0.5}" y="${y + 0.5}" width="${w}" height="23" fill="#111" stroke="#2a2a2a"/><rect x="${x + 8}" y="${y + 8}" width="7" height="7" fill="${COLORS[item] ?? C.mid}"/>${t(x + 21, y + 16, item, `fill="#dcdcdc"`)}</g>`,
       )
-      x += w + 8
+      x += w + 6
     }
-    y += 54
-  }
-
-  // 04 / FOCO
-  parts.push(label(X, y + 4, '04 / FOCO', (d += 0.1)))
-  ;['sistemas internos em produção', 'integrações REST com parceiros', 'automação com n8n + agentes de IA'].forEach((f, i) => {
-    parts.push(`<g class="fade" style="animation-delay:${(d += 0.1).toFixed(2)}s">${t(X, y + 34 + i * 20, '›', `fill="${C.green}"`)}${t(X + 16, y + 34 + i * 20, f, 'font-size="13"')}</g>`)
   })
 
-  const H = Math.max(ty + lineH + 52, y + 34 + 2 * 20 + 28)
-  parts.push(`<line x1="476" y1="28" x2="476" y2="${H - 28}" stroke="${C.line}"/>`)
-  const alt = `Sobre: ${profile.about.join(' ')} Trajetória: ${tl.map((e) => `${e.title}, ${e.org} (${e.period})`).join('; ')}. Stack: ${profile.stack.flatMap((g) => g.items).join(', ')}.`
-  return svg(W, H, alt, parts.join('\n'))
+  const H = Math.max(76 + (profile.about.length - 1) * 19, 62 + profile.stack.length * 34) + 26
+  const alt = `Sobre: ${profile.about.join(' ')} Stack: ${profile.stack.flatMap((g) => g.items).join(', ')}.`
+  return svg(W, H, alt, parts.join('\n').replace('PANEL_BOTTOM', H - 28))
 }
 
-function activity(gh, now) {
+function activity(gh) {
   const parts = []
 
   parts.push(
-    label(28, 46, '05 / ATIVIDADE', 0.1),
-    `<g class="fade" style="animation-delay:.2s">${t(W - 28, 44, `SINCRONIZADO VIA GITHUB API · ${stamp(now)}`, 'class="cap" text-anchor="end"')}</g>`,
+    label(28, 46, '03 / COMMITS', 0.1),
+    `<g class="fade" style="animation-delay:.2s">${t(W - 28, 44, `SEQUÊNCIA ATUAL ${gh.current}D · MAIOR ${gh.longest}D`, 'class="cap" text-anchor="end"')}</g>`,
   )
 
-  // stats
-  ;[
-    [gh.commits, 'COMMITS · 12 MESES'],
-    [gh.prs, 'PULL REQUESTS'],
-    [`${gh.current}d`, 'SEQUÊNCIA ATUAL'],
-    [`${gh.longest}d`, 'MAIOR SEQUÊNCIA'],
-  ].forEach(([v, l], i) => {
-    const x = 28 + i * 212
-    parts.push(`<g class="fade" style="animation-delay:${(0.2 + i * 0.08).toFixed(2)}s">${t(x, 88, v, `font-size="24" font-weight="700" fill="${C.green}"`)}${t(x, 106, l, 'class="cap"')}</g>`)
-  })
-  parts.push(`<line x1="28" y1="128" x2="${W - 28}" y2="128" stroke="${C.line}"/>`)
+  // contribution graph, same scale and layout as the one on the GitHub profile
+  const weeks = gh.weeks
+  const GX = 60, GY = 104
+  const step = Math.floor((W - 28 - GX) / weeks.length)
+  const CS = step - 3
+  const counts = weeks.flat().map((d) => d.contributionCount).filter(Boolean).sort((a, b) => a - b)
+  const q = (p) => counts[Math.floor((counts.length - 1) * p)] ?? 1
+  const level = (c) => (!c ? 0 : c <= q(0.25) ? 1 : c <= q(0.5) ? 2 : c <= q(0.75) ? 3 : 4)
 
-  // active projects: one row per repo with its daily commits
-  const DAYS = 45, BW = 5, BG = 2, SX = 330
-  parts.push(t(28, 156, 'PROJETOS ATIVOS', 'class="cap"'), t(SX, 156, `COMMITS POR DIA · ${DAYS} DIAS`, 'class="cap"'))
-  const rows = gh.featured.map((repo) => {
-    const buckets = Array(DAYS).fill(0)
-    for (const c of repo.commits) {
-      const d = Math.floor((now - new Date(c.committedDate)) / 864e5)
-      if (d < DAYS) buckets[DAYS - 1 - d]++
-    }
-    return { repo, buckets }
-  })
-  const max = Math.max(1, ...rows.flatMap((r) => r.buckets))
-  rows.forEach(({ repo, buckets }, i) => {
-    const y = 186 + i * 30
-    const delay = 0.5 + i * 0.12
-    const bars = buckets.map((b, k) => {
-      const h = b ? Math.max(4, Math.round((b / max) * 20 / 4) * 4) : 2
-      const fill = b ? LEVELS[Math.min(4, 1 + Math.ceil((b / max) * 3))] : LEVELS[0]
-      return `<rect class="grow" x="${SX + k * (BW + BG)}" y="${y + 2 - h}" width="${BW}" height="${h}" fill="${fill}" style="animation-delay:${(delay + k * 0.01).toFixed(2)}s"/>`
+  parts.push(`<g class="fade" style="animation-delay:.2s">${t(28, 74, `${gh.total} contribuições no último ano`, `font-size="13" fill="${C.hi}"`)}</g>`)
+  ;[[1, 'SEG'], [3, 'QUA'], [5, 'SEX']].forEach(([r, l]) => parts.push(t(28, GY + r * step + CS - 1, l, 'class="cap" font-size="9"')))
+  let lastMonth = -1
+  weeks.forEach((week, col) => {
+    const x = GX + col * step
+    const m = new Date(week[0].date + 'T12:00:00').getMonth()
+    const tooShort = col === 0 && new Date(weeks[2][0].date + 'T12:00:00').getMonth() !== m
+    if (m !== lastMonth && !tooShort && col < weeks.length - 2) parts.push(t(x, GY - 8, MONTHS[m], 'class="cap" font-size="9"'))
+    lastMonth = m
+    const cells = week.map((d) => {
+      const row = new Date(d.date + 'T12:00:00').getDay()
+      return `<rect x="${x}" y="${GY + row * step}" width="${CS}" height="${CS}" rx="2" fill="${LEVELS[level(d.contributionCount)]}"><title>${d.date}: ${d.contributionCount}</title></rect>`
     })
+    parts.push(`<g class="fade" style="animation-delay:${(0.3 + col * 0.018).toFixed(3)}s">${cells.join('')}</g>`)
+  })
+  const last = weeks.at(-1).at(-1)
+  const lx = GX + (weeks.length - 1) * step, ly = GY + new Date(last.date + 'T12:00:00').getDay() * step
+  parts.push(`<rect class="pulse" x="${lx - 2}" y="${ly - 2}" width="${CS + 4}" height="${CS + 4}" rx="3" fill="none" stroke="${C.hi}"/>`)
+  const sweep = weeks.map((_, c) => GX - 2 + c * step).join(';')
+  parts.push(`<rect x="${GX - 2}" y="${GY - 2}" width="${CS + 4}" height="${7 * step + 1}" rx="3" fill="none" stroke="${C.hi}" stroke-opacity=".22"><animate attributeName="x" values="${sweep}" dur="${(weeks.length * 0.12).toFixed(1)}s" begin="1.4s" repeatCount="indefinite" calcMode="discrete"/></rect>`)
+
+  const legendY = GY + 7 * step + 10
+  const lgX = W - 28 - 5 * 14 - 30
+  parts.push(t(lgX - 8, legendY + 9, 'MENOS', 'class="cap" font-size="9" text-anchor="end"'))
+  LEVELS.forEach((c, i) => parts.push(`<rect x="${lgX + i * 14}" y="${legendY}" width="10" height="10" rx="2" fill="${c}"/>`))
+  parts.push(t(lgX + 5 * 14 + 4, legendY + 9, 'MAIS', 'class="cap" font-size="9"'))
+
+  // last 30 days, per repository — like GitHub's "Contribution activity"
+  const ay = legendY + 40
+  parts.push(
+    `<line x1="28" y1="${ay - 14}" x2="${W - 28}" y2="${ay - 14}" stroke="${C.line}"/>`,
+    t(28, ay + 14, `${gh.monthCommits} commits em ${gh.byRepo.length} repositórios`, `font-size="13" fill="${C.hi}"`),
+    t(W - 28, ay + 14, 'ÚLTIMOS 30 DIAS', 'class="cap" text-anchor="end"'),
+  )
+  const max = Math.max(1, ...gh.byRepo.map((r) => r.count))
+  const BX = 520, BW = W - 28 - BX
+  gh.byRepo.forEach((r, i) => {
+    const y = ay + 44 + i * 22
+    const delay = (0.9 + i * 0.12).toFixed(2)
     parts.push(
-      `<g class="fade" style="animation-delay:${delay.toFixed(2)}s"><rect x="28" y="${y - 8}" width="8" height="8" fill="${COLORS[repo.language] ?? C.mid}"/>` +
-        t(44, y, trunc(repo.name, 30), `font-size="13" fill="${C.hi}"`) +
-        t(W - 140, y, `${repo.total} commits`, `fill="${C.text}" text-anchor="end"`) +
-        t(W - 28, y, ago(repo.pushedAt, now), `fill="${C.dim}" text-anchor="end"`) +
-        `</g>${bars.join('')}`,
+      `<g class="fade" style="animation-delay:${delay}s"><rect x="28" y="${y - 8}" width="7" height="7" fill="${COLORS[r.language] ?? C.mid}"/>${t(44, y, trunc(r.name, 40), 'fill="#dcdcdc"')}${t(BX - 16, y, `${r.count} commits`, `fill="${C.dim}" text-anchor="end"`)}</g>`,
+      `<rect class="growx" x="${BX}" y="${y - 8}" width="${Math.max(6, Math.round((r.count / max) * BW))}" height="7" rx="2" fill="${LEVELS[3]}" style="animation-delay:${delay}s"/>`,
     )
   })
 
-  // git log
-  const ly = 186 + rows.length * 30
-  parts.push(`<line x1="28" y1="${ly}" x2="${W - 28}" y2="${ly}" stroke="${C.line}"/>`)
-  parts.push(`<g class="fade" style="animation-delay:1.1s">${t(28, ly + 30, '$', `fill="${C.green}" font-weight="700"`)}${t(44, ly + 30, `git log --author=pedro --all-repos --oneline -n ${gh.log.length}`, `fill="${C.mid}"`)}</g>`)
-  gh.log.forEach((c, i) => {
-    const y = ly + 58 + i * 20
-    parts.push(
-      `<g class="fade" style="animation-delay:${(1.4 + i * 0.18).toFixed(2)}s">` +
-        t(28, y, c.abbreviatedOid.slice(0, 7), `fill="${LEVELS[3]}"`) +
-        t(96, y, trunc(c.repo, 24), `fill="#dcdcdc"`) +
-        t(286, y, trunc(c.messageHeadline, 66), `fill="${C.mid}"`) +
-        t(W - 28, y, ago(c.committedDate, now), `fill="${C.dim}" text-anchor="end"`) +
-        `</g>`,
-    )
-  })
-  const cy = ly + 58 + gh.log.length * 20
-  parts.push(`<rect x="28" y="${cy - 12}" width="8" height="14" fill="${C.green}"><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite" calcMode="discrete"/></rect>`)
-
-  const css = `.grow{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);animation:grow .4s steps(3,end) forwards}
-@keyframes grow{to{transform:scaleY(1)}}`
-  const alt = `Atividade no GitHub: ${gh.commits} commits nos últimos 12 meses, ${gh.prs} pull requests, sequência atual de ${gh.current} dias, maior sequência de ${gh.longest} dias. Projetos ativos: ${gh.featured.map((r) => `${r.name} (${r.total} commits)`).join(', ')}. Commits recentes: ${gh.log.map((c) => `${c.repo}: ${c.messageHeadline}`).join('; ')}.`
-  return svg(W, cy + 26, alt, parts.join('\n'), css)
+  const H = ay + 44 + gh.byRepo.length * 22 + 8
+  const css = `.growx{transform-box:fill-box;transform-origin:left;transform:scaleX(0);animation:growx .8s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes growx{to{transform:scaleX(1)}}`
+  const alt = `${gh.total} contribuições no último ano; sequência atual de ${gh.current} dias, maior de ${gh.longest} dias. Últimos 30 dias: ${gh.monthCommits} commits — ${gh.byRepo.map((r) => `${r.name} (${r.count})`).join(', ')}.`
+  return svg(W, H, alt, parts.join('\n'), css)
 }
 
 function readme() {
@@ -403,8 +323,8 @@ function readme() {
 <div align="center">
 
 ${img('./assets/hero.svg', `${profile.name.join(' ')} — ${profile.role}`)}
-${img('./assets/about.svg', 'Sobre, trajetória e stack')}
-${img('./assets/activity.svg', 'Atividade no GitHub, projetos ativos e commits recentes')}
+${img('./assets/about.svg', 'Sobre e stack')}
+${img('./assets/activity.svg', 'Gráfico de contribuições e commits recentes por repositório')}
 
 <br />
 
@@ -422,7 +342,7 @@ const out = (p) => new URL(p, ROOT)
 
 await writeFile(out('assets/hero.svg'), hero(now))
 await writeFile(out('assets/about.svg'), about())
-await writeFile(out('assets/activity.svg'), activity(gh, now))
+await writeFile(out('assets/activity.svg'), activity(gh))
 await writeFile(out('README.md'), readme())
 
-console.log(`ok: ${gh.total} contributions, ${gh.log.length} log lines, featured: ${gh.featured.map((r) => r.name).join(', ')}`)
+console.log(`ok: ${gh.total} contributions, ${gh.monthCommits} commits in the last 30 days across ${gh.byRepo.length} repos`)
