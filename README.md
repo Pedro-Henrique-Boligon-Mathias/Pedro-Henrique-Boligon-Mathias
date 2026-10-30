@@ -4,13 +4,7 @@
 
 <img src="./assets/hero.svg" width="100%" alt="PEDRO HENRIQUE. — desenvolvedor full stack" />
 <img src="./assets/about.svg" width="100%" alt="Sobre, trajetória e stack" />
-<img src="./assets/activity.svg" width="100%" alt="Atividade no GitHub e commits recentes" />
-
-<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/gestao-solicitacoes-internas"><img src="./assets/projects/gestao-solicitacoes-internas.svg" width="49%" alt="gestao-solicitacoes-internas" /></a>
-<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/PagueAqui"><img src="./assets/projects/PagueAqui.svg" width="49%" alt="PagueAqui" /></a>
-<br />
-<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/TemaBot"><img src="./assets/projects/TemaBot.svg" width="49%" alt="TemaBot" /></a>
-<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/semana-academica-sacc"><img src="./assets/projects/semana-academica-sacc.svg" width="49%" alt="semana-academica-sacc" /></a>
+<img src="./assets/activity.svg" width="100%" alt="Atividade no GitHub, projetos ativos e commits recentes" />
 
 <br />
 
