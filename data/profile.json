@@ -1,0 +1,86 @@
+{
+  "login": "Pedro-Henrique-Boligon-Mathias",
+  "name": [
+    "PEDRO",
+    "HENRIQUE."
+  ],
+  "role": "desenvolvedor full stack",
+  "tools": "python · go · c · react · typescript · postgresql · n8n",
+  "status": "ANALISTA DE DESENVOLVIMENTO @ TCHÊTURBO TELECOM",
+  "tagline": "BUILD · LEARN · CREATE",
+  "about": [
+    "Desenvolvimento e sustentação de sistemas internos em",
+    "produção: Python no back-end, React e Vite no front-end,",
+    "PostgreSQL no banco. Integrações via APIs REST e",
+    "automações com n8n e agentes de IA."
+  ],
+  "timeline": [
+    {
+      "period": "JUN 2026 — ATUAL",
+      "title": "Analista de Desenvolvimento de Sistemas",
+      "org": "Tchêturbo Telecom · CLT",
+      "current": true
+    },
+    {
+      "period": "NOV 2024 — MAI 2026",
+      "title": "Jovem Aprendiz · Desenv. de Sistemas",
+      "org": "Tchêturbo Telecom"
+    },
+    {
+      "period": "JAN 2022 — OUT 2024",
+      "title": "Monitor de Tecnologia",
+      "org": "SuperGeeks"
+    },
+    {
+      "period": "2026 — 2029",
+      "title": "Bacharelado em Ciência da Computação",
+      "org": "IFFar · em andamento"
+    }
+  ],
+  "stack": [
+    {
+      "label": "BACK-END",
+      "items": [
+        "Python",
+        "Go",
+        "C",
+        "APIs REST",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "label": "FRONT / MOBILE",
+      "items": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "React Native"
+      ]
+    },
+    {
+      "label": "INFRA · AUTOMAÇÃO",
+      "items": [
+        "Docker",
+        "Linux",
+        "Git",
+        "n8n",
+        "Agentes de IA"
+      ]
+    }
+  ],
+  "featured": [],
+  "links": [
+    {
+      "label": "LINKEDIN",
+      "url": "https://www.linkedin.com/in/pedro-henrique-boligon-mathias-7ab066308"
+    },
+    {
+      "label": "PORTFÓLIO",
+      "url": "https://curriculopedroboligon.vercel.app"
+    },
+    {
+      "label": "EMAIL",
+      "url": "mailto:boligon.pedro@gmail.com"
+    }
+  ]
+}

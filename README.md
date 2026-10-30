@@ -1,56 +1,19 @@
-<!-- PROFILE README | Minimal / Monochrome / Halftone -->
+<!-- Gerado por scripts/generate.mjs — edite data/profile.json, não este arquivo. -->
 
 <div align="center">
-  <img src="./assets/hero.svg" alt="Pedro Henrique — Software Developer" width="100%" />
-</div>
+
+<img src="./assets/hero.svg" width="100%" alt="PEDRO HENRIQUE. — desenvolvedor full stack" />
+<img src="./assets/about.svg" width="100%" alt="Sobre, trajetória e stack" />
+<img src="./assets/activity.svg" width="100%" alt="Atividade no GitHub e commits recentes" />
+
+<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/gestao-solicitacoes-internas"><img src="./assets/projects/gestao-solicitacoes-internas.svg" width="49%" alt="gestao-solicitacoes-internas" /></a>
+<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/PagueAqui"><img src="./assets/projects/PagueAqui.svg" width="49%" alt="PagueAqui" /></a>
+<br />
+<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/TemaBot"><img src="./assets/projects/TemaBot.svg" width="49%" alt="TemaBot" /></a>
+<a href="https://github.com/Pedro-Henrique-Boligon-Mathias/semana-academica-sacc"><img src="./assets/projects/semana-academica-sacc.svg" width="49%" alt="semana-academica-sacc" /></a>
 
 <br />
 
-<table>
-<tr>
-<td width="58%" valign="top">
+<a href="https://www.linkedin.com/in/pedro-henrique-boligon-mathias-7ab066308"><code>LINKEDIN</code></a> &nbsp;·&nbsp; <a href="https://curriculopedroboligon.vercel.app"><code>PORTFÓLIO</code></a> &nbsp;·&nbsp; <a href="mailto:boligon.pedro@gmail.com"><code>EMAIL</code></a>
 
-### 01 / SOBRE MIM
-
-**Olá, sou o Pedro Henrique.**
-
-Desenvolvedor de software e estudante de Ciência da Computação.
-
-Gosto de criar soluções, experimentar tecnologias e transformar ideias em projetos.
-
-</td>
-<td width="42%" valign="top">
-
-### 02 / EM FOCO
-
-`DESENVOLVIMENTO WEB`  
-`BACK-END & FRONT-END`  
-`APRENDIZADO CONTÍNUO`
-
-</td>
-</tr>
-</table>
-
-<br />
-
-### 03 / TECH STACK
-
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=js,ts,react,java,c,postgres,docker,git&theme=dark" alt="JavaScript, TypeScript, React, Java, C, PostgreSQL, Docker e Git" />
-</div>
-
-<br />
-
-### 04 / GITHUB ACTIVITY
-
-<div align="center">
-  <img src="https://ghstats.dev/api/card?username=Pedro-Henrique-Boligon-Mathias&theme=github_dark" alt="Estatísticas do GitHub" width="68%" />
-  <br /><br />
-  <img src="https://streak-stats.demolab.com?user=Pedro-Henrique-Boligon-Mathias&theme=dark&hide_border=true&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF" alt="Sequência de contribuições" width="68%" />
-</div>
-
-<br />
-
-<div align="center">
-  <sub>DESIGN MINIMALISTA · MONOCROMÁTICO · EM CONSTANTE EVOLUÇÃO</sub>
 </div>
